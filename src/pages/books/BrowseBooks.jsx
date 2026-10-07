@@ -41,7 +41,7 @@ const openRequestModal = (book) => {
         const requestExchange = async (bookId) => {
             try {
                 const response = await fetch(
-    `${API_URL}/api/books`,
+    `${API_URL}/api/exchanges`,
                     {
                         method: "POST",
                         headers: {
