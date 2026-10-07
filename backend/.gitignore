@@ -1,0 +1,10 @@
+*.sw?
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Backend uploaded files
+backend/uploads/*
+!backend/uploads/.gitkeep
