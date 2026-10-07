@@ -383,7 +383,7 @@ const [error, setError] = useState("");
                                             {book.cover_image ? (
 
                                                 <img
-                                                    src={`${API_URL}/uploads/${book.cover_image}`}
+                                                    src={book.cover_image}
                                                     alt={`${book.title} cover`}
                                                     className="dashboard-book-cover-image"
                                                 />

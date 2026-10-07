@@ -442,7 +442,7 @@ const recentRatings = ratings.slice(0, 3);
     ) : profile.profile_image ? (
 
         <img
-            src={`${API_URL}/uploads/${profile.profile_image}`}
+            src={profile.profile_image}
             alt="Profile"
             className="profile-avatar-image"
         />

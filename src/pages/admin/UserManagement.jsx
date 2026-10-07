@@ -383,7 +383,7 @@ const confirmUserAction = async () => {
 <div className="user-table-avatar">
     {user.profile_image ? (
         <img
-            src={`${API_URL}/uploads/${user.profile_image}`}
+            src={user.profile_image}
             alt={user.name}
             className="user-table-avatar-image"
         />

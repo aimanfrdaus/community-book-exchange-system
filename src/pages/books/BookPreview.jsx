@@ -130,12 +130,12 @@ const BookPreview = ({
                     {/* COVER */}
                     <div className="book-preview-cover">
                         {book.cover_image ? (
-                            <img
-                                src={`${API_URL}/uploads/${book.cover_image}`}
-                                alt={`${book.title} cover`}
-                                loading="eager"
-                            />
-                        ) : (
+                    <img
+                        src={book.cover_image}
+                        alt={`${book.title} cover`}
+                        loading="eager"
+                    />
+                        ) : (       
                             <div className="book-preview-cover-placeholder">
                                 <span>📖</span>
 

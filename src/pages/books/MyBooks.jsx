@@ -377,7 +377,7 @@ const closeDeleteModal = () => {
                                             {book.cover_image ? (
 
                                                 <img
-                                                    src={`${API_URL}/uploads/${book.cover_image}`}
+                                                    src={book.cover_image}
                                                     alt={`${book.title} cover`}
                                                     className="my-book-cover-image"
                                                 />

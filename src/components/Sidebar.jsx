@@ -89,17 +89,17 @@ const Sidebar = () => {
 </div>
 
 <div className="sidebar-user">
-    <div className="user-avatar">
-        {user?.profile_image ? (
-            <img
-                src={`${API_URL}/uploads/${user.profile_image}`}
-                alt="Profile"
-                className="sidebar-profile-image"
-            />
-        ) : (
-            user?.name?.charAt(0).toUpperCase()
-        )}
-    </div>
+   <div className="user-avatar">
+    {user?.profile_image ? (
+        <img
+            src={user.profile_image}
+            alt="Profile"
+            className="sidebar-profile-image"
+        />
+    ) : (
+        user?.name?.charAt(0).toUpperCase()
+    )}
+</div>
 
                 <div>
                     <strong>{user?.name}</strong>

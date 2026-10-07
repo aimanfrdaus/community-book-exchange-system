@@ -57,13 +57,11 @@ const EditBook = ({ book, onBack, onSuccess }) => {
         setRemoveCover(false);
         setError("");
 
-        if (book.cover_image) {
-            setImagePreview(
-                `${API_URL}/uploads/${book.cover_image}`
-            );
-        } else {
-            setImagePreview("");
-        }
+if (book.cover_image) {
+    setImagePreview(book.cover_image);
+} else {
+    setImagePreview("");
+}
     }, [book]);
 
     /*

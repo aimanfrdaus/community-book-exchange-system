@@ -2,19 +2,16 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
+
 const authRoutes = require("./routes/authRoutes");
 const db = require("./config/db");
 const bookRoutes = require("./routes/bookRoutes");
 const exchangeRoutes = require("./routes/exchangeRoutes");
 const reportRoutes = require("./routes/reportRoutes");
-
 const adminRoutes = require("./routes/adminRoutes");
-
 const notificationRoutes = require("./routes/notificationRoutes");
-
 const meetupRoutes = require("./routes/meetupRoutes");
 const ratingRoutes = require("./routes/ratingRoutes");
-const path = require("path");
 
 console.log("DB USER:", process.env.DB_USER);
 console.log("DB HOST:", process.env.DB_HOST);
@@ -35,11 +32,6 @@ app.use("/api/meetups", meetupRoutes);
 app.use("/api/ratings", ratingRoutes);
 app.use("/api/reports", reportRoutes);
 
-app.use(
-    "/uploads",
-    express.static(path.join(__dirname, "uploads"))
-);
-
 app.get("/", (req, res) => {
     res.send("Community Book Exchange System API is running");
 });
@@ -47,7 +39,10 @@ app.get("/", (req, res) => {
 app.get("/test-db", (req, res) => {
     db.query("SELECT 1", (err, result) => {
         if (err) {
-            console.error("Database connection failed:", err);
+            console.error(
+                "Database connection failed:",
+                err
+            );
 
             return res.status(500).json({
                 message: "Database connection failed"
@@ -63,7 +58,8 @@ app.get("/test-db", (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(
+        `Server running on http://localhost:${PORT}`
+    );
 });

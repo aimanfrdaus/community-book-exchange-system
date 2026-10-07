@@ -866,7 +866,7 @@ const IncomingRequests = () => {
     {request.cover_image ? (
 
         <img
-            src={`${API_URL}/uploads/${request.cover_image}`}
+            src={request.cover_image}
             alt={`${request.title} cover`}
             className="request-book-cover-image"
         />

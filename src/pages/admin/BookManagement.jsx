@@ -321,7 +321,7 @@ const handleDeleteBook = async () => {
 
 {book.cover_image ? (
     <img
-        src={`${API_URL}/uploads/${book.cover_image}`}
+        src={book.cover_image}
         alt={book.title}
         className="admin-book-cover"
     />
@@ -479,10 +479,10 @@ const handleDeleteBook = async () => {
                 <div className="admin-book-details-cover">
 
                 {selectedBook.cover_image ? (
-                    <img
-                        src={`${API_URL}/uploads/${selectedBook.cover_image}`}
-                        alt={selectedBook.title}
-                    />
+             <img
+                src={selectedBook.cover_image}
+                alt={selectedBook.title}
+            />
                 ) : (
                     <div className="admin-book-no-cover">
                         📖

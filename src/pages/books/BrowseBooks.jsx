@@ -473,11 +473,11 @@ const confirmRequestExchange = async () => {
 
                                     {book.cover_image ? (
 
-                                        <img
-                                            src={`${API_URL}/uploads/${book.cover_image}`}
-                                            alt={`${book.title} cover`}
-                                            className="browse-book-cover-image"
-                                        />
+                                <img
+                                    src={book.cover_image}
+                                    alt={`${book.title} cover`}
+                                    className="browse-book-cover-image"
+                                />
 
                                     ) : (
 

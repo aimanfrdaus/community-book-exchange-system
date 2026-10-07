@@ -342,7 +342,8 @@ const updateProfileImage = async (req, res) => {
             });
         }
 
-        const profileImage = req.file.filename;
+        // Cloudinary image URL
+        const profileImage = req.file.path;
 
         await db.promise().query(
             `UPDATE users

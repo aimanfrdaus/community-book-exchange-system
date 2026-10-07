@@ -1,6 +1,4 @@
 const db = require("../config/db");
-const fs = require("fs");
-const path = require("path");
 
 // ===============================
 // ADD BOOK
@@ -23,10 +21,11 @@ const addBook = (req, res) => {
         });
     }
 
-    // Get uploaded cover image filename
+    // Cloudinary image URL
     const coverImage = req.file
-        ? req.file.filename
+        ? req.file.path
         : null;
+
 
     const sql = `
         INSERT INTO books
@@ -130,19 +129,6 @@ const updateBook = (req, res) => {
     } = req.body;
 
     if (!title || !author) {
-        // If a new image was uploaded but validation fails,
-        // remove the newly uploaded file.
-        if (req.file) {
-            fs.unlink(
-                path.join(
-                    __dirname,
-                    "../uploads",
-                    req.file.filename
-                ),
-                () => {}
-            );
-        }
-
         return res.status(400).json({
             message: "Title and author are required"
         });
@@ -165,34 +151,12 @@ const updateBook = (req, res) => {
                     err
                 );
 
-                if (req.file) {
-                    fs.unlink(
-                        path.join(
-                            __dirname,
-                            "../uploads",
-                            req.file.filename
-                        ),
-                        () => {}
-                    );
-                }
-
                 return res.status(500).json({
                     message: "Failed to update book"
                 });
             }
 
             if (results.length === 0) {
-                if (req.file) {
-                    fs.unlink(
-                        path.join(
-                            __dirname,
-                            "../uploads",
-                            req.file.filename
-                        ),
-                        () => {}
-                    );
-                }
-
                 return res.status(404).json({
                     message: "Book not found"
                 });
@@ -207,6 +171,8 @@ const updateBook = (req, res) => {
             // NEW COVER IMAGE
             // =========================
             if (req.file) {
+                const newCover = req.file.path;
+
                 sql = `
                     UPDATE books
                     SET
@@ -227,7 +193,7 @@ const updateBook = (req, res) => {
                     genre || null,
                     condition_status || null,
                     description || null,
-                    req.file.filename,
+                    newCover,
                     location || null,
                     status || "Available",
                     book_id
@@ -303,61 +269,18 @@ const updateBook = (req, res) => {
                             updateErr
                         );
 
-                        // Remove newly uploaded image
-                        // if database update failed.
-                        if (req.file) {
-                            fs.unlink(
-                                path.join(
-                                    __dirname,
-                                    "../uploads",
-                                    req.file.filename
-                                ),
-                                () => {}
-                            );
-                        }
-
                         return res.status(500).json({
                             message:
                                 "Failed to update book"
                         });
                     }
 
-                    // =========================
-                    // DELETE OLD COVER
-                    // =========================
-                    if (
-                        oldCover &&
-                        (req.file ||
-                            remove_cover === "true")
-                    ) {
-                        const oldCoverPath = path.join(
-                            __dirname,
-                            "../uploads",
-                            path.basename(oldCover)
-                        );
-
-                        fs.unlink(
-                            oldCoverPath,
-                            (deleteErr) => {
-                                if (
-                                    deleteErr &&
-                                    deleteErr.code !==
-                                        "ENOENT"
-                                ) {
-                                    console.error(
-                                        "Failed to delete old cover:",
-                                        deleteErr
-                                    );
-                                }
-                            }
-                        );
-                    }
-
                     res.status(200).json({
                         message:
                             "Book updated successfully",
+
                         cover_image: req.file
-                            ? req.file.filename
+                            ? req.file.path
                             : remove_cover === "true"
                             ? null
                             : oldCover
